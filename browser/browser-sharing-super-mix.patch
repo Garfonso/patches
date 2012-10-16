@@ -79,6 +79,12 @@ index 6bf5870..7f6b9f2 100644
 +		checkEnabled: true
 +	},
 +	
++	Mobilize: {
++		label: $L('Mobilize'),
++		command: 'mobilize-page-cmd',
++		checkEnabled: true
++	},
++	
 +	NeatoThatUrl: {
 +		label: $L('Send via Neato!'),
 +		command: 'add-neato-cmd',
@@ -187,7 +193,7 @@ index 6e8efd0..815f976 100644
 +		
 +		this.getTweaksPrefs = new Mojo.Service.Request("palm://org.webosinternals.tweaks.prefs/", {
 +			method: 'get', parameters: {'owner': "browser-sharing-super-mix", 
-+			keys: ["showNeato", "showDataJog", "showSpareTime", "showInstapaper", "ipUsername", "ipPassword", "showRelego", "showReadontouch", "showMeOrg", "showTapNote", "showClipboard", "shortenURL", "reKindleIt", 
++			keys: ["showNeato", "showDataJog", "showSpareTime", "showInstapaper", "ipUsername", "ipPassword", "showMobilize", "showRelego", "showReadontouch", "showMeOrg", "showTapNote", "showClipboard", "shortenURL", "reKindleIt", 
 +					"showFacebook", "showBadKitty", "showSpaz", "showTwee", "showTweed", "showCarbon", "showTachyon", "showQuickPost"]},
 +			onSuccess: function(response) {
 +				if(response) {
@@ -201,6 +207,9 @@ index 6e8efd0..815f976 100644
 +						this.appMenuModel.items[0].items.push(MenuData.ApplicationMenu.SendToInstapaper);
 +						this.insta_username = response.ipUsername;
 +						this.insta_password = response.ipPassword;
++					}
++					if(response.showMobilize == true) {
++						this.appMenuModel.items[0].items.push(MenuData.ApplicationMenu.Mobilize);
 +					}
 +					if(response.showRelego == true) 
 +						this.appMenuModel.items[0].items.push(MenuData.ApplicationMenu.AddToRelego);
@@ -401,8 +410,12 @@ index 6e8efd0..815f976 100644
 +								appController.showBanner(bannerParams, {banner: message});
 +							}
 +						});
-+				break;				
++				break;
 +				
++				case MenuData.ApplicationMenu.Mobilize.command:
++					this.openUrl("http://instapaper.com/m?u=" + this.currentUrl);
++				break;
++
 +				//RELEGO
 +				case MenuData.ApplicationMenu.AddToRelego.command:
 +					// Send the URL to Relego

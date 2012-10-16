@@ -109,6 +109,14 @@
 			"value": "",
 			"input": "text",
 		}, {
+			"group": "page submenu",
+			"restart": "app",
+			"label": "Mobilize",
+			"help": "Determines whether the Mobilize option should be under the Page section. Mobilize sends the current page to Instapaper to show a text-only version of it in the browser.",
+			"key": "showMobilize",
+			"type":"ToggleButton",
+			"value": false
+		}, {
 			"group": "share via... submenu",
 			"restart": "app",
 			"label": "Facebook",
